@@ -1,32 +1,22 @@
 import pandas as pd
 import os
-from glob import glob
 import datetime
 
 # -----------------------------
-# Folders (local OneDrive sync)
+# OneDrive synced folders
 # -----------------------------
-input_folder = r"C:\Users\E027978\Shreyank\OneDrive - Sansera Engineering Limited\Data_ERMS"
+input_file = r"C:\Users\E027978\Shreyank\OneDrive - Sansera Engineering Limited\Data_ERMS\Daily_Data.csv"
 output_folder = r"C:\Users\E027978\Shreyank\OneDrive - Sansera Engineering Limited\Data_ERMS_Cleaned"
 
 # Make sure output folder exists
 os.makedirs(output_folder, exist_ok=True)
 
-# -----------------------------
-# Get the latest CSV file
-# -----------------------------
-list_of_files = glob(os.path.join(input_folder, "*.csv"))
-if not list_of_files:
-    print("No CSV files found in Data_ERMS folder.")
-    exit()
-
-latest_file = max(list_of_files, key=os.path.getctime)
-print(f"Processing file: {latest_file}")
+print(f"Processing file: {input_file}")
 
 # -----------------------------
 # Load CSV
 # -----------------------------
-df = pd.read_csv(latest_file)
+df = pd.read_csv(input_file)
 
 # Convert Date column
 df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
